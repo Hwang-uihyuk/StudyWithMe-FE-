@@ -9,6 +9,9 @@ import Home from './pages/Home';
 import StudyMap from './pages/StudyMap';
 import Board from './pages/Board/Board';
 import Login from './pages/Login';
+import Post from './pages/Board/Post';
+import NewPost from './pages/Board/NewPost';
+import EditPost from './pages/Board/EditPost';
 
 
 const router = createBrowserRouter([
@@ -38,7 +41,20 @@ const router = createBrowserRouter([
       {
         path:'/board',
         element: <Board/>
-      }
+      },
+      {
+        path: "/post",
+        element: <Post />,
+      },
+      {
+        path: "/post/new",
+        element: <NewPost />,
+      },
+      {
+        path: "/post/edit",
+        element: <EditPost />,
+      },
+      
     ]
   }
 ])
