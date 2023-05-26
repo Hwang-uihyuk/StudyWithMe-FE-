@@ -1,29 +1,50 @@
-import axios from 'axios';
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { ContextData } from "../components/context/ContextData";
+
+const baseURL = process.env.REACT_APP_URL;
 
 export default function KaoKaoLogin() {
   const location = useLocation();
-  const KAKAO_CODE = location.search.split('=')[1];
-    console.log(KAKAO_CODE)
+  const KAKAO_CODE = location.search.split("=")[1];
+  console.log("인증 코드 ", KAKAO_CODE);
 
-  console.log("인증 코드 ", KAKAO_CODE)
-  const grant_type = "authorization_code";
-  const REST_API_KEY = process.env.REACT_REST_API_KEY;
-  const REDIRECT_URI = process.env.REACT_REDIRECT_URI
+  const {setIdKey} = useContext(ContextData)
+  //login
+  const handleLogin = () => {
+    axios
+      .get(`${baseURL}/kakao?code=${KAKAO_CODE}`, { withCredentials: true })
+      .then((res) => {
+        console.log(res);
+          setIdKey(res.data.avatarID)
+      });
+  };
 
-    
-  if(KAKAO_CODE){
-    axios.post(`https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
-    {},
-    {
-      headers : {
-        "Content-type" : "application/x-www-form-urlencoded; charset-utf-8",
-      },
-    }
-    ).then((res) => console.log("access token", res.data.access_token))
-  }
+  //logout
+  const handleLogout = () => {
+    axios
+      .get(`${baseURL}/logout`,
+      { withCredentials : true})
+      .then((res) => {
+        console.log("logout성공", res);
+        alert("로그아웃되었습니다.");
+        document.location.href = "/";
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
-    <div>로그인 인증 코드과 토큰 </div>
-  )
+    <div>
+      Code and Token
+      <div>
+        <button className="border border-black m-1" onClick={handleLogin}>
+          로그인 코드 보내기
+        </button>
+        <button className="border border-black" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    </div>
+  );
 }

@@ -1,10 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
 import { Outlet } from 'react-router-dom';
+import Footer from './components/Footer';
+import ContextDataProvider from './components/context/ContextData';
 
 function App() {
   return (
-    <Outlet/>
+    <ContextDataProvider>
+      <Outlet />
+      <Footer />
+    </ContextDataProvider>
   );
 }
 
