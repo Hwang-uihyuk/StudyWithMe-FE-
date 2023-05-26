@@ -12,7 +12,7 @@ export default function KaoKaoLogin() {
   const REST_API_KEY = process.env.REACT_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_REDIRECT_URI
 
-    console.log(REST_API_KEY)
+    
   if(KAKAO_CODE){
     axios.post(`https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
     {},
