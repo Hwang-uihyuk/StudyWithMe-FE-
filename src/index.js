@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import KaKaoLogin from './pages/KaKaoLogin';
 import Home from './pages/Home';
 import StudyMap from './pages/StudyMap';
-import Board from './pages/Board';
+import Board from './pages/Board/Board';
 import Login from './pages/Login';
 
 
