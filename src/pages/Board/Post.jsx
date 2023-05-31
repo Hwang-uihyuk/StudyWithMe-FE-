@@ -12,7 +12,7 @@ export default function Post() {
   const location = useLocation();
   const postid = location.state.postid;
   const [data, setData] = useState("");
-  const {idKey,setIdKey} = useContext(ContextData)
+  const {idKey} = useContext(ContextData)
 
   useEffect(() => {
     axios
@@ -25,15 +25,15 @@ export default function Post() {
         console.log(res);
       });
   }, []);
-  console.log(window.localStorage.getItem("SESSION"));
 
 
-  const handleDelete = () =>  {
-      axios.delete(`${baseURL}/comment?commentID=2`,
+  const handleDelete = (v) =>  {
+      axios.delete(`${baseURL}/comment?commentID=${v.id}`,
       {withCredentials : true})
-      .then((res) => alert("삭제되었습니다."))
-     
-      
+      .then((res) => {
+        alert("삭제되었습니다.")
+        document.location.href = '/post'
+      })
   }
 
   const handleEdit = () => {
@@ -98,12 +98,13 @@ export default function Post() {
                   </div>
                   {/* 삭제와수정 */}
                   
-                  {v.nickname ===  data.nickname ? <div>왜</div>: <div>틀림</div>}
-                  
-                  <div className="flex w-[50%] justify-end">                      
-                        <button onClick={handleDelete}>삭제</button >
+                  {window.localStorage.getItem("AVATAR_ID") == v.avatarID ?  <div className="flex w-[50%] justify-end">                      
+                        <button onClick={() => handleDelete(v) }>삭제</button >
+
                         <button onClick={handleEdit}>수정</button>                      
-                  </div>
+                  </div>: ''}
+                  
+                 
                 </div>
                 
               ))}

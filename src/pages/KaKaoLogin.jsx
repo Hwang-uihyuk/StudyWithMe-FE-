@@ -10,7 +10,7 @@ export default function KaoKaoLogin() {
   const KAKAO_CODE = location.search.split("=")[1];
   console.log("인증 코드 ", KAKAO_CODE);
 
-  const {setIdKey} = useContext(ContextData)
+  const {idKey,setIdKey} = useContext(ContextData)
   //login
   const handleLogin = () => {
     axios
@@ -18,6 +18,7 @@ export default function KaoKaoLogin() {
       .then((res) => {
         console.log(res);
           setIdKey(res.data.avatarID)
+          window.localStorage.setItem("AVATAR_ID",res.data.avatarID)
       });
   };
 

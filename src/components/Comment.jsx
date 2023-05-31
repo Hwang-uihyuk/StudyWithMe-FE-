@@ -12,7 +12,7 @@ export default function Comment({id, setData, data}) {
   const [comment, setComment] = useState("")
   const navigate = useNavigate();
   
-  const {idKey,setIdKey} = useContext(ContextData)
+  const {idKey} = useContext(ContextData)
   console.log(idKey)
 
   const handleCommentChange = (e) => {
