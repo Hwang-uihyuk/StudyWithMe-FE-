@@ -36,12 +36,16 @@ export default function Post() {
       })
   }
 
-  const handleEdit = () => {
-       const data = {
-         comment_id : "",
-         content : ""
-       }
-      axios.patch(`${baseURL}/comment`,)
+  const handleEdit = (v) => {
+        //새로운폼을 만들고
+        //및 data에는 변경된 content를 넣자.
+
+        <input type="text"> </input>
+      //  const data = {
+      //    comment_id : v.id,
+      //    content : ""
+      //  }
+      // axios.patch(`${baseURL}/comment`,)
   }
   return (
     <div>
@@ -84,24 +88,28 @@ export default function Post() {
         </div>
 
         {/* 댓글 */}
-        <div className="mt-10 w-[60vw]">
+        <div className="mt-10  w-[65vw]">
           댓글
           <div>
             {data.commentDetailResponseList &&
               data.commentDetailResponseList.map((v) => (
                 
                 // 댓글전체
-                <div className="border flex">
-                  <div className="flex w-[50%]">         
-                    {v.nickname}
-                    <p className="pl-5">{v.content}</p>
+                <div className="border border-r-emerald-600 flex">
+                  <div className="flex w-[50%] ">         
+                      <div className="text-[blue]">{v.nickname}<br/>
+                      <div className="pl-3 text-[black]">{v.content}</div>
+                      </div>                  
+                      
                   </div>
                   {/* 삭제와수정 */}
                   
                   {window.localStorage.getItem("AVATAR_ID") == v.avatarID ?  <div className="flex w-[50%] justify-end">                      
-                        <button onClick={() => handleDelete(v) }>삭제</button >
+                  <button className="pr-1"onClick={() => handleEdit(v)}>수정</button>                      
 
-                        <button onClick={handleEdit}>수정</button>                      
+                  <button onClick={() => handleDelete(v) }>삭제</button >
+
+                        
                   </div>: ''}
                   
                  
