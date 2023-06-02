@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import Comment from "../../components/Comment";
 import { ContextData } from '../../components/context/ContextData';
+import { RiDeleteBinLine } from "react-icons/ri"
 
 // axios.defaults.withCredentials = true;
 const baseURL = process.env.REACT_APP_URL;
@@ -22,11 +23,11 @@ export default function Post() {
       )
       .then((res) => {
         setData(res.data);
-        console.log(res);
+        console.log(res.data.avatarID);
       });
   }, []);
 
-
+  //댓글 삭제
   const handleDelete = (v) =>  {
       axios.delete(`${baseURL}/comment?commentID=${v.id}`,
       {withCredentials : true})
@@ -36,6 +37,18 @@ export default function Post() {
       })
   }
 
+   //게시글 삭제
+  const handlePostDelete = () => {
+    axios.delete(`${baseURL}/post?postID=${data.id}`,
+    {withCredentials : true})
+    .then((res) => {
+      console.log(res)
+      alert("삭제되었습니다.")
+      document.location.href = '/board'
+    })
+  }
+
+  //댓글 수정
   const handleEdit = (v) => {
         //새로운폼을 만들고
         //및 data에는 변경된 content를 넣자.
@@ -47,6 +60,11 @@ export default function Post() {
       //  }
       // axios.patch(`${baseURL}/comment`,)
   }
+console.log(data.id)
+console.log(data.avatarID)
+console.log(window.localStorage.getItem('AVATAR_ID'))
+ 
+
   return (
     <div>
   
@@ -62,8 +80,10 @@ export default function Post() {
           <div className="w-full border-t-2 border-black">
             {/* title */}
             <div className="px-[20px] py-[15px] border-b-2 border-dashed">
-              {" "}
               글 제목이 들어갑니다.
+              {data.avatarID == window.localStorage.getItem("AVATAR_ID") ? 
+              <button onClick={handlePostDelete} className="float-right text-xl"><RiDeleteBinLine/></button> 
+              : ""}
             </div>
             {/* info */}
             <div className="p-[15px] border-b-[1px] border-solid border-[#999]">

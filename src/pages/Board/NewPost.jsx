@@ -41,6 +41,7 @@ export default function NewPost() {
       .then((res) => {
         console.log(res);
         alert("새 글이 등록되었습니다.");
+        document.location.href = "/board"
       });
   };
 
