@@ -3,11 +3,15 @@ import React, { useContext, useEffect, useState } from "react";
 import PostDetail from "../../components/PostDetail";
 import { Link } from "react-router-dom";
 import { ContextData } from '../../components/context/ContextData';
+import { BiSearch } from "react-icons/bi"
 
 const baseURL = process.env.REACT_APP_URL;
 
 export default function Board({children}) {
   const [data, setData] = useState("");
+  const [searchResult, setSearchResult]= useState('')
+  const [searchPoint, setSearchPoint] = useState(0)
+
   const avatarId = useContext(ContextData)
   console.log(avatarId)
   // 게시판 불러오기
@@ -21,6 +25,26 @@ export default function Board({children}) {
   }, []);
   console.log(data);
 
+
+  //검색창
+  const [search, setSearch] = useState('')
+
+  const handleSearchChange = (e) => {
+    setSearch(e.currentTarget.value)
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    axios.get(`${baseURL}/search_board?page=0&boardName=matching&keyword=${search}`)
+    .then((res)=> {
+      alert("검색 결과 불러오기 성공")
+      setSearch("")
+      setSearchPoint((prev) => prev+1)
+      setSearchResult(res.data.postResponseList)
+      console.log(res)
+      
+    })
+  }
   // 글쓰기 Button
   const handleNewPostClick = () => {
     <Link to=""></Link>;
@@ -56,7 +80,9 @@ export default function Board({children}) {
               </div>
             </div>
 
-            {data && data.map((v, i) => <PostDetail post={v} />)}
+            {searchPoint ===0 && data && data.map((v, i) => <PostDetail post={v} />)}
+            {searchPoint > 0 && searchResult && searchResult.map((v, i) => <PostDetail post={v} />)}
+            
           </div>
 
           {/* board page */}
@@ -89,6 +115,22 @@ export default function Board({children}) {
               ..
             </a>
           </div>
+
+          {/* serach */}
+          <form className="flex justify-center pt-3
+          " onSubmit={handleSearchSubmit}      
+          >
+              <div className="border-l border-t border-b pt-1 pl-2 rounded-l-full">
+                <BiSearch />
+              </div>
+              <input type="text"
+              placeholder="검색어를 입력하세요."
+              className="text-center border-t border-b"
+              onChange={handleSearchChange}
+              value={search}></input>
+              <button className="border-r border-t border-b rounded-r-full pl-1 pr-3"
+               >검색</button>
+          </form>
 
           {/* button */}
           {/* button wrap */}
