@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Post from './pages/Board/Post';
 import NewPost from './pages/Board/NewPost';
 import EditPost from './pages/Board/EditPost';
+import Mypage from './pages/Mypage';
 
 
 const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/post/edit",
         element: <EditPost />,
+      },
+      {
+        path: "/mypage",
+        element: <Mypage />,
       },
       
     ]
