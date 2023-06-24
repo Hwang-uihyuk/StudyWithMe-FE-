@@ -11,6 +11,7 @@ export default function Board({children}) {
   const [data, setData] = useState("");
   const [searchResult, setSearchResult]= useState('')
   const [searchPoint, setSearchPoint] = useState(0)
+  const [pages, setPages] = useState("sdf")
 
   const avatarId = useContext(ContextData)
   console.log(avatarId)
@@ -21,10 +22,12 @@ export default function Board({children}) {
       .then((res) => {
         setData(res.data.postResponseList);
         console.log(res);
+        setPages(res.data.totalPages)
+        console.log(res.data.totalPages)
       });
   }, []);
-  console.log(data);
-
+  
+  
 
   //검색창
   const [search, setSearch] = useState('')
@@ -55,10 +58,10 @@ export default function Board({children}) {
       <div className="w-1000 mx-auto my-36">
         {/* board title */}
         <strong className="text-4xl">매칭게시판</strong> 
-        <p className="mb-7">코딩할사람 모여라.</p>
+        <p className="mb-7">코딩할사람 모여라.sdf</p>
 
         {/* board_list_wrap */}
-        <div>
+        <div></div>
           {/* board_list */}
           <div className="w-full border-t-2 border-black ">
             {/* board list-top */}
@@ -87,7 +90,6 @@ export default function Board({children}) {
 
           {/* board page */}
           <div className="mt-[30px] text-center">
-            {}
             <a href="#" className="pt-[10px]">              
               ....
             </a>
@@ -142,6 +144,6 @@ export default function Board({children}) {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }

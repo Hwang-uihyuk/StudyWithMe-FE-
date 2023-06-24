@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Login from "../pages/Login";
+import Logout from "./Logout";
 
 export default function Navbar() {
   return (
@@ -16,10 +17,16 @@ export default function Navbar() {
 
       <div className="flex">
         <Link to="/board" className="pt-3.5">Board</Link>
+        
         <Link to="/mypage" className="pt-3.5 pl-5 pr-5">Mypage</Link>
-        <div className="pt-3.5">
+
+        {!window.localStorage.getItem("AVATAR_ID") && <div className="pt-3.5">
         <Login/>
-        </div>
+        </div>}
+
+        {window.localStorage.getItem("AVATAR_ID") && <div className="pt-3.5">
+          <Logout/>
+          </div>}
       </div>
     </header>
   );
