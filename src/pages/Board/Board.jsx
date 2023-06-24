@@ -17,7 +17,7 @@ export default function Board({children}) {
   // 게시판 불러오기
   useEffect(() => {
     axios
-      .get(`${baseURL}/board?page=0&size=10&boardName=matching`)
+      .get(`${baseURL}/board?page=0&boardName=matching`)
       .then((res) => {
         setData(res.data.postResponseList);
         console.log(res);
@@ -87,11 +87,9 @@ export default function Board({children}) {
 
           {/* board page */}
           <div className="mt-[30px] text-center">
-            <a href="#" className="pt-[10px] border-black">
-              ..
-            </a>
+            {}
             <a href="#" className="pt-[10px]">              
-              ..
+              ....
             </a>
             <a href="#" className="pt-[10px]">              
               1
@@ -109,11 +107,9 @@ export default function Board({children}) {
               5
             </a>
             <a href="#" className="pt-[10px]">              
-              ..
+              ....
             </a>
-            <a href="#" className="pt-[10px]">              
-              ..
-            </a>
+          
           </div>
 
           {/* serach */}
